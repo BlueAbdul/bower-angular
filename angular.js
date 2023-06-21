@@ -19460,7 +19460,9 @@ function $RootScopeProvider() {
         // We can't destroy a scope that has been already destroyed.
         if (this.$$destroyed) return;
         var parent = this.$parent;
-
+        while (this.$$childHead) {
+          this.$$childHead.$destroy();
+        }
         this.$broadcast('$destroy');
         this.$$destroyed = true;
 
